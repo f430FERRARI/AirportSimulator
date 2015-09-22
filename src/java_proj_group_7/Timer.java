@@ -1,11 +1,21 @@
 package java_proj_group_7;
 
-//THIS WILL BE ITS OWN THREAD
-public class Timer { 
-	private String unitOfTime; 
+public class Timer {
+
+	private int unitOfTime; 
 	
-	public long getCurrentTime() { 
-		return System.currentTimeMillis();
+	public Timer(int timeUnit)
+	{
+		this.unitOfTime=timeUnit;	
+	}
+	
+	public long getCurrentTime() 
+	{ 
+
+		long currentTime =  System.currentTimeMillis() /1000;  	//Convert the time into seconds and integer 
+		currentTime = currentTime/unitOfTime;						//Convert seconds to unit of time
+		
+		return currentTime;											//Return time in units of time
 	}
 	
 }

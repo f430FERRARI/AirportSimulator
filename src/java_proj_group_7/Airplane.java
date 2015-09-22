@@ -5,9 +5,9 @@ public class Airplane {
 	private String id; 
 	private int fuel; 
 	private int fuelBurnRate; 
-	private int landingTime; 
-	private int taxingTime; 
-	private int unloadTime; 
+	private long landingTime; 				//TODO: Does this need to be cast?
+	private long taxingTime; 
+	private long unloadTime; 
 	private long arrivalTime; 
 	private long runwayCompletionTime;  
 	private boolean result;
@@ -23,7 +23,7 @@ public class Airplane {
 	}
 
 	public void calculateResult() {
-		fuel = fuel - ((runwayCompletionTime - arrivalTime) * fuelBurnRate);  
+		fuel = (int) (fuel - ((runwayCompletionTime - arrivalTime) * fuelBurnRate));  
 		if (fuel >= 0) { 
 			result = true;
 		}
@@ -41,15 +41,15 @@ public class Airplane {
 		return fuelBurnRate;
 	}
 
-	public int getLandingTime() {
+	public long getLandingTime() {
 		return landingTime;
 	}
 
-	public int getTaxingTime() {
+	public long getTaxingTime() {
 		return taxingTime;
 	}
 
-	public int getUnloadTime() {
+	public long getUnloadTime() {
 		return unloadTime;
 	}
 
@@ -61,7 +61,7 @@ public class Airplane {
 		return runwayCompletionTime;
 	} 
 	
-	public void setRunwayCompletionTime(int completionTime) {
+	public void setRunwayCompletionTime(long completionTime) {
 		this.runwayCompletionTime = completionTime;
 	} 
 	

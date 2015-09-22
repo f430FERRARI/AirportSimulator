@@ -3,13 +3,13 @@ package java_proj_group_7;
 public class Runway {
 	
 	private boolean isEmpty = true;
-	private int nextAvailible = 0;
+	private long nextAvailible = 0;
 	
 	public boolean isEmpty() {
 		return isEmpty;
 	} 
 	
-	public void occupyRunway(int time) { 
+	public void occupyRunway(long time) { 
 		this.isEmpty = false;  
 		this.nextAvailible = time;
 		
@@ -19,7 +19,7 @@ public class Runway {
 		this.isEmpty = true;
 	}
 
-	public int getNextAvailible() {
+	public long getNextAvailible() {
 		return nextAvailible;
 	}
 
