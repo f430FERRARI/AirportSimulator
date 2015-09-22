@@ -11,22 +11,19 @@ import java_proj_group_7.Timer;
 import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 import javax.xml.crypto.Data; 
 
-
 public class Simulator {
 	
 	public static void main(String[] args) { 
-		
-		String [] userInput = message.split(" ");  //TODO: shouldn't userInput be args?
-		
+				
 		//show description of program, and creator names if user enters -h
-		if (userInput[0].equals("-h")) {
+		if (args[1].equals("-h")) { 		//TODO:
 			System.out.println("Creators: Michael Lee, Vincent Truong, Aron Chan, Edward Lee");				
 		}
 		
 		//If user enters -f, create new airport with values contained in file to be read
-		else if (userInput[0].equals("-f") && !userInput[1].equals("")) {
+		else if (args[1].equals("-f")) {
 			
-			InputFileReader inputFileReader = new InputFileReader(userInput[1]); 		//create new input reader passing in file path
+			InputFileReader inputFileReader = new InputFileReader(args[2]); 		//create new input reader passing in file path
 			int[] airportData = inputFileReader.readAirport(); 	 
 			Airport airport = new Airport(airportData[0], airportData[1]); 	//TODO:
 		
@@ -56,6 +53,30 @@ public class Simulator {
 				Timer time = new Timer(airportData[2]); 		//TODO:
 				long currentTime = time.getCurrentTime(); 
 							
+				//Loop for scenario
+				while(!( message.equals("")))
+				{
+					if (message.contains("CASE"))
+					{
+						message = message.replaceAll("[^0-9]+", " ");
+						//System.out.println((message.trim().split(" ")[0]));
+						//String[] scenarioInput = message.split (" ");
+						int caseNumber=Integer.parseInt(message.trim().split(" ")[0]); //save case number read from string
+						message=in.nextLine();
+					}
+					
+					if(message.charAt(0)== "(")
+					{
+						message = message.replaceAll("[^0-9]+", " ");
+						int[] airplaneValues= message.split(" ");			//split airplane values by space into array
+						
+						Airplane airplane = new Airplane(airplaneValues[0], airplaneValues[1], airplaneValues[2], airplaneValues[3], airplaneValues[4], airplaneValues[5], timer.getCurrentTime()); 
+						airplaneQueue.add(airplane); 	
+						message=in.nextLine();
+					}
+					
+				}
+				
 				//TODO: Parse incoming plane data  
 				//Create plane and add to the queue			
 				//TODO: IF THERE IS A NEW PLANE
@@ -114,11 +135,14 @@ public class Simulator {
 			//TODO: What if this ends before the last plane leaves.
 				in.close();
 			}
+			
 			//Get airplane results and output it to the file	
 			for (Airplane airplane : finishedAirplanes) { 
-				OutputFileWriter outputFileWriter = new OutputFileWriter(path); 
-				outputFileWriter.writeResults(finishedAirplanes);
-			} 
+				airplane.calculateResult();
+			}  
+
+			OutputFileWriter outputFileWriter = new OutputFileWriter(args[5], caseNumber); 
+
 		} 
 	}
 }

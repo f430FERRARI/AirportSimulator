@@ -5,14 +5,12 @@ import java.util.ArrayList;
 
 public class OutputFileWriter {
 	private String outputPath;  
-	private int caseCount; 			// Keeps track of the case number for output
 	
 	public OutputFileWriter(String path) { 
 		this.outputPath = path;
-		caseCount = 1;
 	}  
 	
-	public void writeResults(ArrayList<Airplane> finishedAirplanes) {  	//TODO:
+	public void writeResults(ArrayList<Airplane> finishedAirplanes, int caseNumber) { 
 		String currentLine;
 		boolean validity = true;
 
@@ -29,6 +27,7 @@ public class OutputFileWriter {
 		{
 			BufferedReader reader = new BufferedReader(new FileReader(this.outputPath));	// Create new reader for our output path
 			BufferedWriter writer = new BufferedWriter(new FileWriter(this.outputPath));	// Create new writer for our output path
+			currentLine = reader.readLine();
 
 			while (currentLine != null)						// Iterate through the file and check existing contents
 			{
@@ -40,7 +39,7 @@ public class OutputFileWriter {
 				}
 			}
 
-			writer.write("CASE " + caseCount + ": ");
+			writer.write("CASE " + caseNumber + ": ");
 
 			if (validity == false)
 			{
